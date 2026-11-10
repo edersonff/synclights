@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=SyncLights
+Comment=Sincronização de luzes ambiente com a tela
+Exec=synclights-desktop --open
+Icon=synclights
+Terminal=false
+Categories=AudioVideo;Utility;
+StartupNotify=true

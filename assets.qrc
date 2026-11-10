@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="synclights-icon.png">assets/synclights-icon-256.png</file>
+  </qresource>
+</RCC>
