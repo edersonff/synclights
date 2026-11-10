@@ -9,9 +9,11 @@ Medições feitas em 10 nov 2026 em CachyOS/X11, dois monitores 1920×1080, DP-0
 | X11 GetImage em três ROIs | P50 0,70 ms · P95 1,24 ms · P99 1,40 ms (bench sem limite) | — | 1,01 MB | Faixa superior 1920×63 e laterais 61×1080 |
 | X11-ROI em 120 Hz, método grid | 117,5–117,9 FPS | 0 | ~1,01 MB | P95 software 7,1–7,5 ms enquanto o cursor mudava as cores da fita |
 | FFmpeg resize 320×180 em 120 Hz | 112,2–119,7 FPS | 0 | ~8,29 MB de entrada | P95 software 5,9–6,1 ms no teste dinâmico; usa cerca de 8,2× mais banda de captura |
-| Preview FFmpeg | limitado a 10 FPS, 320×180 | slot de última imagem | 0,23 MB por quadro | Independente do cálculo dos LEDs |
+| Preview FFmpeg | limitado a 6 FPS, 320×180 | slot de última imagem | 0,23 MB por quadro | Independente do cálculo dos LEDs |
 
-O primeiro teste de resize revelou que `scale` sozinho permitia à saída raw repetir milhares de quadros por segundo. Adicionamos `fps=120` antes do redimensionamento e medimos novamente; o contador caiu para ~119 FPS sem perdas. O preview recebe o mesmo limite explícito (`fps=10`).
+O primeiro teste de resize revelou que `scale` sozinho permitia à saída raw repetir milhares de quadros por segundo. Adicionamos `fps=120` antes do redimensionamento e medimos novamente; o contador caiu para ~119 FPS sem perdas. O preview recebe o mesmo limite explícito (`fps=6`).
+
+DP-3 (monitor 1) também foi exercitado com a fita e inversão: captura ~116 FPS sem perda no loop, amostragem grid 0,10 ms, escrita HID ~6,0 ms. O bench de captura nesse monitor ficou P50 1,90 / P95 2,79 / P99 4,38 ms, mais lento que DP-0 nesta sessão.
 
 ## Estimadores
 

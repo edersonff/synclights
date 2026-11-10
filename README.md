@@ -6,7 +6,7 @@ Aplicativo desktop Linux para sincronizar a fita ROBOBLOQ SyncLight (`1a86:fe07`
 
 - X11 com RandR, XFixes opcional para incluir o ponteiro, fita USB testada neste host.
 - Captura direta de regiões até 120 FPS; o controle Velocidade só altera a transição temporal entre cenas. Jogo usa uma média estratificada rápida 8×8 por LED, contraste/intensidade fortes e resposta imediata; Filme aplica uma transição suave sem baixar a captura.
-- Preview independente, limitado a 10 FPS e 320×180.
+- Preview independente, limitado a 6 FPS e 320×180.
 - Configurações persistentes, seleção de monitor, inversão da fita, perfis, ícone de bandeja e autostart.
 - Acesso hidraw por regra udev instalada uma vez; o app não pede sudo durante o uso.
 

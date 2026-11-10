@@ -336,9 +336,9 @@ fn roi_screen_sync(path:&str,monitor_index:usize,fps:u32,estimator:&str,inverted
     let mut preview_child=None;
     if preview_enabled{
         let display=env::var("DISPLAY").unwrap_or_else(|_|":0".into());let mut cmd=Command::new("ffmpeg");
-        cmd.args(["-hide_banner","-loglevel","fatal","-thread_queue_size","1","-f","x11grab","-draw_mouse","1","-framerate","10","-video_size"])
+        cmd.args(["-hide_banner","-loglevel","fatal","-thread_queue_size","1","-f","x11grab","-draw_mouse","1","-framerate","6","-video_size"])
             .arg(format!("{}x{}",m.w,m.h)).args(["-i"]).arg(format!("{display}+{},{}",m.x,m.y))
-            .args(["-vf","fps=10,scale=320:180:flags=area","-an","-f","rawvideo","-pix_fmt","bgr0","pipe:1"])
+            .args(["-vf","fps=6,scale=320:180:flags=area","-an","-f","rawvideo","-pix_fmt","bgr0","pipe:1"])
             .stdout(Stdio::piped()).stderr(Stdio::null());
         unsafe{cmd.pre_exec(||{libc::prctl(libc::PR_SET_PDEATHSIG,libc::SIGTERM);Ok(())});}
         let mut child=cmd.spawn()?;let mut output=child.stdout.take().ok_or("preview capture pipe unavailable")?;let slot=Arc::clone(&preview_slot);
@@ -454,9 +454,9 @@ fn ffmpeg_screen_sync(path: &str, monitor_index: usize, fps: u32, estimator: &st
         frames += 1;
         if preview_enabled && frames % 6 == 0 {
             // Preview is independent of LED sampling and carries the pointer.
-            // 320x180 at 10 Hz keeps it crisp without resizing the LED source.
+            // 320x180 at 6 Hz stays crisp in the panel and keeps preview work low.
             // Fixed-size preview (320x180 RGB + 65 sampled LED colors),
-            // delivered at 10 Hz; this is small and does not trigger another capture.
+            // delivered at 6 Hz; this is small and does not trigger another capture.
             let mut packet=Vec::with_capacity(320*180*3+65*3);
             for py in 0..180usize { let sy=py*image.height/180; for px in 0..320usize { let sx=px*image.width/320;let c=image.pixel(sx,sy);packet.extend_from_slice(&[c.r,c.g,c.b]); }}
             for c in &colors { packet.extend_from_slice(&[c.r,c.g,c.b]); }

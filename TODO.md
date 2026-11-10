@@ -7,11 +7,13 @@
 - [x] Regra udev `0660:users` para usar a fita sem sudo em cada execução.
 - [x] Capturar somente três ROIs de borda por X11; incluir cursor com XFixes quando disponível.
 - [x] Limitar FPS do motor a 120 e limitar FFmpeg explicitamente com filtro `fps`, evitando milhares de frames duplicados.
-- [x] Manter preview independente a 320×180 e 10 FPS.
+- [x] Manter preview independente a 320×180 e 6 FPS.
 - [x] Modos Jogo, Filme e Ambiente; persistência de monitor, método, controles, inversão, autostart e tamanho da janela.
 - [x] Bandeja, ícone e instalação no diretório do usuário.
 - [x] Cobrir protocolo, sequência de pacote e equivalência dos cinco amostradores com testes automatizados.
 - [x] Fazer testes reais no DP-0 e na fita conectada, com ponteiro em movimento; registrar método, FPS, perda e P95.
+- [x] Verificar DP-3, inversão, perfis no app instalado e bandeja abrir/ocultar; startup `--start` permanece oculto na bandeja.
+- [x] Capturar/revisar a interface instalada e conferir o site renderizado localmente; remover screenshot do monitor pessoal antes de publicar.
 - [x] Publicar instruções, licença MIT e site estático.
 
 ## Limites conhecidos
@@ -21,10 +23,9 @@
 - A estratégia resize FFmpeg lê a tela inteira antes da redução e usa mais banda/CPU que as ROIs diretas; permanece como comparador opcional.
 - LED físico realimentado (variação de cor distinta em tela, incluindo uma cena de jogo/filme) precisa de confirmação visual pelo dono. Cursor e atualização HID foram exercitados na fita durante os benchmarks.
 
-## Próximos itens
+## Validação de longo prazo / fora do equipamento disponível
 
-- [ ] Testar visualmente o app depois da instalação limpa e confirmar transições em jogo e filme.
-- [ ] Fazer teste sustentado longo (30–60 min) e observar temperatura, consumo e estabilidade de conexão USB.
-- [ ] Obter medição óptica com fotodiodo/câmera para caracterizar a latência total tela→LED.
-- [ ] Validar XFixes desligado, outros layouts de monitor, desconexão/reconexão e Wayland quando houver ambiente disponível.
-- [ ] Avaliar build/appimage para distros sem Rust/Qt já instalados.
+- A captura, escrita HID e troca dos perfis foram exercitadas por testes repetidos; ainda não houve soak de 30–60 min.
+- Medição óptica tela→LED requer fotodiodo/câmera apontado à fita; as webcams do host não têm posição/visada conhecidas. A métrica disponível é frame→escrita USB.
+- X11/CachyOS e duas telas DP-0/DP-3 foram verificados. Wayland, outras fitas e desconexão/reconexão permanecem compatibilidade futura.
+- AppImage é formato futuro; o build CMake atual instala limpo no perfil do usuário e não depende de Actions.
